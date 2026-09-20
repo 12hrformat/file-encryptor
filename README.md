@@ -1,4 +1,4 @@
-# Educational Ransomware Project
+# File Encryptor - Educational Ransomware Project
 
 ⚠️ **WARNING: This is a fully functional ransomware for EDUCATIONAL PURPOSES ONLY** ⚠️
 
@@ -52,7 +52,7 @@ This software will:
 ## Installation (For Controlled Lab Use Only)
 
 ```bash
-git clone https://github.com/yourusername/educational-ransomware
-cd educational-ransomware
+git clone https://github.com/12hrformat/file-encryptor
+cd file-encryptor
 chmod +x setup.sh
 ./setup.sh
